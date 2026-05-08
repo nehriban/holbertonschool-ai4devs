@@ -1,5 +1,7 @@
-// Intended: Calculate the average of an array of numbers
-// Bug Type: Runtime exception - off-by-one in loop
+// Bug 3 – bug3.js
+// Intended Behavior: Return the arithmetic average of an array of numbers.
+// Issue Type: Runtime exception (off-by-one in loop).
+// Notes: Loop uses <= instead of <. Reads undefined on last iteration making total NaN.
 
 function calculateAverage(numbers) {
   let total = 0;

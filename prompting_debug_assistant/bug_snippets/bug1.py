@@ -1,5 +1,7 @@
-# Intended: Return the last n items of a list
-# Bug Type: Off-by-one error
+## Bug 1 – bug1.py
+## Intended Behavior: Return the last n items of a list.
+## Issue Type: Off-by-one error.
+## Notes: The function fails when n == len(items).
 
 def get_last_n(items, n):
     if n == 0:

@@ -1,8 +1,9 @@
-// Intended: Reverse a string and check if it is a palindrome
-// Bug Type: Syntax error + NullPointerException
+// Bug 5 – bug5.java
+// Intended Behavior: Reverse a string and check if it is a palindrome.
+// Issue Type: Syntax error and Runtime exception (NullPointerException).
+// Notes: Missing semicolon causes compile error. No null check causes NullPointerException.
 
 public class PalindromeChecker {
-
     public static String reverseString(String str) {
         String reversed = "";
         for (int i = str.length(); i >= 0; i--) {

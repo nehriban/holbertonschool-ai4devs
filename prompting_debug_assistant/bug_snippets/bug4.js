@@ -1,10 +1,11 @@
-// Intended: Count how many times each word appears in a sentence
-// Bug Type: Misuse of data types
+// Bug 4 – bug4.js
+// Intended Behavior: Count how many times each word appears in a sentence.
+// Issue Type: Misuse of data types (falsy comparison pitfall).
+// Notes: counts[word] == false fails on second occurrence. Repeated words stored as NaN.
 
 function wordCount(sentence) {
   const counts = {};
   const words = sentence.split(" ");
-
   for (let i = 0; i < words.length; i++) {
     const word = words[i].toLowerCase();
     if (counts[word] == false) {

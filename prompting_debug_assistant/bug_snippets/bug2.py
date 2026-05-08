@@ -1,5 +1,7 @@
-# Intended: Check if a number is prime
-# Bug Type: Logical error
+## Bug 2 – bug2.py
+## Intended Behavior: Return True if n is a prime number, False otherwise.
+## Issue Type: Logical error.
+## Notes: Returns True on first non-divisor instead of continuing the loop.
 
 def is_prime(n):
     if n < 2:
