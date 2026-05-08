@@ -1,31 +1,31 @@
 # Bug Descriptions
 
 ## Bug 1 – bug1.py
-**Intended Behavior**: Return the last n items of a list.
+**Intended Behavior**: Given a list like `[10, 20, 30, 40, 50]` and `n=3`, the function should return `[30, 40, 50]`. When `n == len(items)`, it should return the entire list.
 **Issue Type**: Off-by-one error.
-**Notes**: The function fails when n == len(items).
+**Notes**: The function uses `items[-n + 1:]` instead of `items[-n:]`, causing it to skip the first element. Fails completely when `n == len(items)`.
 
 ## Bug 2 – bug2.py
-**Intended Behavior**: Check if a number is prime.
+**Intended Behavior**: Given an integer like `7`, the function should return `True`. Given `4` or `9`, it should return `False`. For `n < 2`, it should return `False`.
 **Issue Type**: Logical error.
-**Notes**: Returns True on first non-divisor instead of continuing the loop.
+**Notes**: The loop returns `True` on the very first iteration where `n % i != 0`, instead of continuing to check all divisors. Any composite number is incorrectly reported as prime.
 
 ## Bug 3 – bug3.js
-**Intended Behavior**: Calculate the average of an array of numbers.
-**Issue Type**: Runtime exception.
-**Notes**: Loop uses <= instead of <, reads undefined on last iteration.
+**Intended Behavior**: Given `[10, 20, 30]`, the function should return `20`. Given `[5, 15]`, it should return `10`. Given an empty array `[]`, it should return `0` or handle gracefully.
+**Issue Type**: Runtime exception (off-by-one in loop).
+**Notes**: The loop condition uses `<=` instead of `<`. On the last iteration, `numbers[numbers.length]` returns `undefined`, making `total` become `NaN`. No empty array guard exists.
 
 ## Bug 4 – bug4.js
-**Intended Behavior**: Count how many times each word appears in a sentence.
-**Issue Type**: Misuse of data types.
-**Notes**: Words appearing more than once are stored as NaN.
+**Intended Behavior**: Given `"the cat sat on the mat"`, the function should return `{ the: 2, cat: 1, sat: 1, on: 1, mat: 1 }`. Given `"hello hello hello"`, it should return `{ hello: 3 }`.
+**Issue Type**: Misuse of data types (falsy comparison pitfall).
+**Notes**: The condition `counts[word] == false` behaves unexpectedly when `counts[word]` is `undefined`. On the second occurrence of a word, `undefined + 1` produces `NaN`, so repeated words are always stored as `NaN`.
 
 ## Bug 5 – bug5.java
-**Intended Behavior**: Reverse a string and check if it is a palindrome.
-**Issue Type**: Syntax error + NullPointerException.
-**Notes**: Missing semicolon and no null check causes crashes.
+**Intended Behavior**: Given `"racecar"`, the function should return `true`. Given `"hello"`, it should return `false`. Given `null`, it should return `false` gracefully without crashing.
+**Issue Type**: Syntax error + Runtime exception (StringIndexOutOfBoundsException + NullPointerException).
+**Notes**: A missing semicolon after `return reversed` causes a compile-time syntax error. The loop starts at `str.length()` instead of `str.length() - 1`, causing an out-of-bounds exception. No null check exists before calling `reverseString`.
 
 ## Bug 6 – bug6.py
-**Intended Behavior**: Perform binary search on a sorted list.
-**Issue Type**: Infinite loop.
-**Notes**: low and high never update correctly, causing infinite loop.
+**Intended Behavior**: Given `[1, 3, 5, 7, 9]` and target `7`, the function should return index `3`. Given a target not in the list like `15`, it should return `-1`.
+**Issue Type**: Infinite loop (loop logic error).
+**Notes**: When the target is in the upper half, `low = mid` never advances past `mid`. When in the lower half, `high = mid` never retreats. The search range never shrinks, causing an infinite loop for most inputs.
