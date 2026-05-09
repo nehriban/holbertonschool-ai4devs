@@ -1,19 +1,24 @@
-## Bug 6 – bug6.py
-## Intended Behavior: Perform binary search on a sorted list and return the index of target.
-## Issue Type: Infinite loop (loop logic error).
-## Notes: low = mid and high = mid never shrink the search range causing infinite loop.
+import csv
 
-def binary_search(items, target):
-    low = 0
-    high = len(items) - 1
-    while low <= high:
-        mid = (low + high) // 2
-        if items[mid] == target:
-            return mid
-        elif items[mid] < target:
-            low = mid
-        else:
-            high = mid
-    return -1
+def process_scores(input_path, output_path):
+    infile = open(input_path, "r")
+    reader = csv.reader(infile)
 
-print(binary_search([1, 2, 3, 4, 5], 3))
+    results = []
+    for row in reader:
+        name = row[0]
+        scores = row[1:]
+        average = sum(scores) / len(scores)
+        results.append([name, average])
+
+    infile.close()
+
+    outfile = open(output_path, "w")
+    writer = csv.writer(outfile)
+    writer.writerow(["Name", "Average"])
+
+    for result in results:
+        writer.writerow(result)
+
+
+process_scores("scores.csv", "averages.csv")
