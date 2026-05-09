@@ -1,29 +1,36 @@
 ## Bug 1 – bug1.py
-**Intended Behavior**: Return the last n items of a list.  
-**Issue Type**: Off-by-one error.  
-**Notes**: The function fails when n == len(items).  
+
+**Intended Behavior**: Return a list with the last n elements.
+**Issue Type**: Off-by-one error.
+**Notes**: Loop uses len(items)+1. Change to len(items).
 
 ## Bug 2 – bug2.py
-**Intended Behavior**: Return True if n is prime, False otherwise.  
-**Issue Type**: Logical error.  
-**Notes**: Returns True on first non-divisor instead of continuing the loop.  
+
+**Intended Behavior**: Calculate factorial of n (factorial(0)=1).
+**Issue Type**: Logical error.
+**Notes**: Starts at 0; excludes n. Set result=1 and use range(1, n+1).
 
 ## Bug 3 – bug3.js
-**Intended Behavior**: Return the arithmetic average of an array of numbers.  
-**Issue Type**: Runtime exception.  
-**Notes**: Loop uses <= instead of <, reads undefined on last iteration.  
+
+**Intended Behavior**: Return mean of numbers rounded to 2 decimal places.
+**Issue Type**: Logic error.
+**Notes**: NaN passes filter. Use Number.isNaN and initial value 0.
 
 ## Bug 4 – bug4.js
-**Intended Behavior**: Count how many times each word appears in a sentence.  
-**Issue Type**: Misuse of data types.  
-**Notes**: Words appearing more than once are stored as NaN.  
+
+**Intended Behavior**: Fetch JSON and return names in uppercase.
+**Issue Type**: Async/Await error.
+**Notes**: Promises not awaited. Add await before fetch and json().
 
 ## Bug 5 – bug5.java
-**Intended Behavior**: Reverse a string and check if it is a palindrome.  
-**Issue Type**: Syntax error and Runtime exception.  
-**Notes**: Missing semicolon and no null check causes crashes.  
+
+**Intended Behavior**: Return the most frequent word in a sentence.
+**Issue Type**: Runtime exception.
+**Notes**: Null input and missing keys cause NPE. Add null guard.
 
 ## Bug 6 – bug6.py
-**Intended Behavior**: Perform binary search on a sorted list and return target index.  
-**Issue Type**: Infinite loop.  
-**Notes**: low and high never update correctly, causing infinite loop.  
+
+**Intended Behavior**: Compute CSV averages and write to new CSV.
+**Issue Type**: Type mismatch.
+**Notes**: CSV values are strings. Convert to float() and use with-blocks.
+
