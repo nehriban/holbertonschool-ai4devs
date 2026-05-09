@@ -1,33 +1,39 @@
 # Bug Descriptions
 
-This document describes the bugs found in each file, including intended behavior, issue type, and notes on how to fix them.
+This document describes the bugs found in each file, including intended behavior, issue type, notes, and fix suggestions to help developers resolve the issues.
 
-### FILE: bug1.py
-**Intended Behavior:** Return a list with the last n elements.
+## Bug 1 – bug1.py
+**Intended Behavior:** Return a list with the last n elements. For example, `get_last_n([10, 20, 30, 40, 50], 3)` should return `[30, 40, 50]`.
 **Issue Type:** Off-by-one error.
-**Notes:** Loop uses `len(items)+1` instead of `len(items)`, causing an IndexError by accessing an index that does not exist.
+**Notes:** Loop uses `len(items)+1` instead of `len(items)`, causing an IndexError because the last valid index is `len(items)-1`, so going beyond it exceeds the list boundary.
+**Fix:** Change `range(start, len(items)+1)` to `range(start, len(items))`.
 
-### FILE: bug2.py
-**Intended Behavior:** Calculate factorial of n, where factorial(0) equals 1.
+## Bug 2 – bug2.py
+**Intended Behavior:** Calculate the factorial of n, where `factorial(0)` and `factorial(1)` should both return 1. For example, `factorial(5)` should return 120.
 **Issue Type:** Logical error.
-**Notes:** `result` is initialized to 0 and `range(1, n)` excludes n, so the result is always 0. Set `result=1` and use `range(1, n+1)`.
+**Notes:** `result` is initialized to 0 instead of 1, and `range(1, n)` excludes n, so multiplication always produces 0 and the last number is never included.
+**Fix:** Set `result=1` and change `range(1, n)` to `range(1, n+1)`.
 
-### FILE: bug3.js
-**Intended Behavior:** Return the mean of numeric values in an array, rounded to 2 decimal places.
+## Bug 3 – bug3.js
+**Intended Behavior:** Return the mean of all numeric values in an array, rounded to 2 decimal places. For example, `average([1, 2, 3, 4, 5])` should return `"3.00"`.
 **Issue Type:** Logic error.
-**Notes:** `typeof n === "number"` does not exclude NaN, corrupting the sum. Use `Number.isFinite` and pass `0` as the initial value to `reduce` to avoid errors on empty arrays.
+**Notes:** `typeof n === "number"` does not exclude NaN because `typeof NaN` is also `"number"`, corrupting the sum. Additionally, `reduce` has no initial value, causing it to throw an error on empty arrays.
+**Fix:** Use `Number.isFinite(n)` in the filter and pass `0` as the initial value to `reduce`.
 
-### FILE: bug4.js
-**Intended Behavior:** Fetch JSON from a URL and return user names in uppercase.
+## Bug 4 – bug4.js
+**Intended Behavior:** Fetch user data from a URL and return an array of names in uppercase. For example, the first name should appear as `"LEANNE GRAHAM"`.
 **Issue Type:** Async/Await error.
-**Notes:** Missing `await` before `fetch()` and `.json()` causes the function to operate on unresolved Promises instead of actual data, resulting in a TypeError at runtime.
+**Notes:** Missing `await` before `fetch()` and `.json()` means the function operates on unresolved Promises instead of actual data, resulting in a TypeError at runtime.
+**Fix:** Add `await` before both `fetch(url)` and `response.json()`.
 
-### FILE: bug5.java
-**Intended Behavior:** Count word frequencies in a sentence and return the most frequent word.
+## Bug 5 – bug5.java
+**Intended Behavior:** Count word frequencies in a sentence and return the most frequent word. For example, in `"the cat sat on the mat the cat"`, the result should be `"the"`.
 **Issue Type:** Runtime exception (NullPointerException).
-**Notes:** Passing null as input and accessing missing map keys both throw a NullPointerException. Add a null check at the start of `countWords` and use `getOrDefault` when updating counts.
+**Notes:** Passing null as input causes a NullPointerException when calling `.toLowerCase()`. Also, accessing missing map keys with `counts.get(word)` returns null, and adding 1 to null throws another NPE.
+**Fix:** Add a null check at the start of `countWords` and use `counts.getOrDefault(word, 0)` when updating counts.
 
-### FILE: bug6.py
-**Intended Behavior:** Read scores from a CSV file, compute averages, and write results to a new CSV.
+## Bug 6 – bug6.py
+**Intended Behavior:** Read student scores from a CSV file, compute the average for each student, and write the results to a new CSV file with columns `Name` and `Average`.
 **Issue Type:** Type mismatch.
-**Notes:** CSV values are read as strings, causing a TypeError in `sum()`. Convert each value to `float()` before summing. Use `with` blocks to ensure files are properly closed even if an error occurs.
+**Notes:** CSV values are read as strings by default, so calling `sum()` on them raises a TypeError. Also, files are opened without `with` blocks, risking data loss if an error occurs before `close()` is called.
+**Fix:** Convert each score to `float()` before summing and use `with open(...)` blocks for safe file handling.
